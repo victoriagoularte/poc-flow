@@ -9,8 +9,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-inline fun <reified State : UIState, reified Interaction : UIInteraction> AppCompatActivity.onStateChange(
-    viewModel:  ViewModel<State, Interaction>,
+inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivity.onStateChange(
+    viewModel:  ViewModel<State, Effect>,
     crossinline handleStates: (State) -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
 ) {
@@ -20,8 +20,8 @@ inline fun <reified State : UIState, reified Interaction : UIInteraction> AppCom
     )
 }
 
-inline fun <reified State : UIState, reified Interaction : UIInteraction> AppCompatActivity.onStateChange(
-    viewModel:  ViewModel<State, Interaction>,
+inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivity.onStateChange(
+    viewModel:  ViewModel<State, Effect>,
     crossinline handleStates: (State) -> Unit,
     crossinline onRepeat: () -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
@@ -33,12 +33,12 @@ inline fun <reified State : UIState, reified Interaction : UIInteraction> AppCom
     )
 }
 
-inline fun <reified State : UIState, reified Interaction : UIInteraction> AppCompatActivity.onAction(
-    viewModel: ViewModel<State, Interaction>,
-    crossinline handleEvents: (Interaction) -> Unit,
+inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivity.onInteraction(
+    viewModel: ViewModel<State, Effect>,
+    crossinline handleEvents: (Effect) -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
 ) {
-    viewModel.action.launchAndCollectIn(this, operation = { event -> handleEvents(event) })
+    viewModel.effect.launchAndCollectIn(this, operation = { event -> handleEvents(event) })
 }
 
 inline fun <T> Flow<T>.repeatExecuteAndCollectIn(

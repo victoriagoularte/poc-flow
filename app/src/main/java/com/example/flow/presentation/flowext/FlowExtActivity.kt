@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.example.flow.common.onAction
+import com.example.flow.common.onInteraction
 import com.example.flow.common.onStateChange
 import com.example.flow.databinding.ActivityFlowBinding
 import com.example.flow.presentation.components.PokeCardAdapter
 import com.example.flow.presentation.flow.DetailPokemon
-import com.example.flow.presentation.flow.PokeUiInteraction
+import com.example.flow.presentation.flow.PokeUiEffects
 import com.example.flow.presentation.flow.PokeUiState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,16 +26,16 @@ class FlowExtActivity : AppCompatActivity() {
 
         setupListeners()
 
-        onStateChange(viewModel, ::handleStateChange, ::repeat)
-        onAction(viewModel, ::handleInteraction)
+        onStateChange(viewModel, ::handleStateChange, ::repeatOnStarted)
+        onInteraction(viewModel, ::handleEffect)
     }
 
     private fun setupListeners() {
         adapter.setOnClickItemListener { pokeName -> viewModel.detailPokemon(pokeName) }
     }
 
-    private fun handleInteraction(pokeUiInteraction: PokeUiInteraction) = when (pokeUiInteraction) {
-        is DetailPokemon -> Toast.makeText(this, pokeUiInteraction.name, Toast.LENGTH_SHORT).show()
+    private fun handleEffect(pokeUiEffects: PokeUiEffects) = when (pokeUiEffects) {
+        is DetailPokemon -> Toast.makeText(this, pokeUiEffects.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun handleStateChange(state: PokeUiState) = with(binding) {
@@ -45,7 +45,7 @@ class FlowExtActivity : AppCompatActivity() {
         adapter.submitList(state.pokemons)
     }
 
-    private fun repeat() {
+    private fun repeatOnStarted() {
         viewModel.getPokemons()
     }
 }

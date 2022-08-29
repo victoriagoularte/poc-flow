@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.flow.common.ViewModel
 import com.example.flow.domain.usecase.FlowUseCase
 import com.example.flow.presentation.flow.DetailPokemon
-import com.example.flow.presentation.flow.PokeUiInteraction
+import com.example.flow.presentation.flow.PokeUiEffects
 import com.example.flow.presentation.flow.PokeUiState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.catch
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class FlowExtViewModel(
     private val useCase: FlowUseCase,
     private val dispatcher: CoroutineDispatcher
-) : ViewModel<PokeUiState, PokeUiInteraction>(PokeUiState()) {
+) : ViewModel<PokeUiState, PokeUiEffects>(PokeUiState()) {
 
     init {
         getPokemons()
@@ -39,6 +39,6 @@ class FlowExtViewModel(
     }
 
     fun detailPokemon(pokeName: String) {
-        sendInteraction { DetailPokemon(pokeName) }
+        sendEffect { DetailPokemon(pokeName) }
     }
 }
