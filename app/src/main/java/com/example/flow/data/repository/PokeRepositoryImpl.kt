@@ -35,4 +35,4 @@ class PokeRepositoryImpl(private val dataSource: PokeDataSource) : PokeRepositor
     }
 }
 
-private fun PokeResultResponse.toDomain() = pokemons.map { Pokemon(it.name, it.url) }
+fun PokeResultResponse.toDomain() = pokemons.map { Pokemon(it.name, it.url) }
