@@ -1,4 +1,4 @@
-package com.example.flow.common
+package com.example.flow.common.viewmodel
 
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

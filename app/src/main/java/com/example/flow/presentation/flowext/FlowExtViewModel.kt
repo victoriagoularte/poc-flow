@@ -1,7 +1,7 @@
 package com.example.flow.presentation.flowext
 
 import androidx.lifecycle.viewModelScope
-import com.example.flow.common.ViewModel
+import com.example.flow.common.viewmodel.ViewModel
 import com.example.flow.domain.usecase.FlowUseCase
 import com.example.flow.presentation.flow.DetailPokemon
 import com.example.flow.presentation.flow.PokeUiEffects

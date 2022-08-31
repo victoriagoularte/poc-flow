@@ -1,4 +1,4 @@
-package com.example.flow.common
+package com.example.flow.common.viewmodel
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
