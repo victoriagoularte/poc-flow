@@ -1,6 +1,7 @@
 package com.example.flow.common
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -10,24 +11,26 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivity.onStateChange(
-    viewModel:  ViewModel<State, Effect>,
+    viewModel: ViewModel<State, Effect>,
     crossinline handleStates: (State) -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
 ) {
     viewModel.state.launchAndCollectIn(
-        this,
+        owner = this,
+        minActiveState = minActiveState,
         operation = { state -> handleStates(state) }
     )
 }
 
 inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivity.onStateChange(
-    viewModel:  ViewModel<State, Effect>,
+    viewModel: ViewModel<State, Effect>,
     crossinline handleStates: (State) -> Unit,
     crossinline onRepeat: () -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
 ) {
     viewModel.state.repeatExecuteAndCollectIn(
-        this,
+        owner = this,
+        minActiveState = minActiveState,
         operation = { state -> handleStates(state) },
         onRepeat = onRepeat
     )
@@ -38,7 +41,10 @@ inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivit
     crossinline handleEvents: (Effect) -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
 ) {
-    viewModel.effect.launchAndCollectIn(this, operation = { event -> handleEvents(event) })
+    viewModel.effect.launchAndCollectIn(
+        owner = this,
+        minActiveState = minActiveState,
+        operation = { event -> handleEvents(event) })
 }
 
 inline fun <T> Flow<T>.repeatExecuteAndCollectIn(
@@ -65,4 +71,41 @@ inline fun <T> Flow<T>.launchAndCollectIn(
             operation(it)
         }
     }
+}
+
+inline fun <reified State : UIState, reified Effect : UIEffect> Fragment.onStateChange(
+    viewModel: ViewModel<State, Effect>,
+    crossinline handleStates: (State) -> Unit,
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
+) {
+    viewModel.state.launchAndCollectIn(
+        owner = viewLifecycleOwner,
+        minActiveState = minActiveState,
+        operation = { state -> handleStates(state) }
+    )
+}
+
+inline fun <reified State : UIState, reified Effect : UIEffect> Fragment.onStateChange(
+    viewModel: ViewModel<State, Effect>,
+    crossinline handleStates: (State) -> Unit,
+    crossinline onRepeat: () -> Unit,
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
+) {
+    viewModel.state.repeatExecuteAndCollectIn(
+        owner = viewLifecycleOwner,
+        minActiveState = minActiveState,
+        operation = { state -> handleStates(state) },
+        onRepeat = onRepeat
+    )
+}
+
+inline fun <reified State : UIState, reified Effect : UIEffect> Fragment.onInteraction(
+    viewModel: ViewModel<State, Effect>,
+    crossinline handleEvents: (Effect) -> Unit,
+    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
+) {
+    viewModel.effect.launchAndCollectIn(
+        owner = viewLifecycleOwner,
+        minActiveState = minActiveState,
+        operation = { event -> handleEvents(event) })
 }
