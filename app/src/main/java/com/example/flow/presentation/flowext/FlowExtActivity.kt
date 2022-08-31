@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.example.flow.common.viewmodel.onInteraction
-import com.example.flow.common.viewmodel.onStateChange
+import com.example.flow.common.extensions.onInteraction
+import com.example.flow.common.extensions.onStateChange
 import com.example.flow.databinding.ActivityFlowBinding
 import com.example.flow.presentation.components.PokeCardAdapter
 import com.example.flow.presentation.flow.DetailPokemon
