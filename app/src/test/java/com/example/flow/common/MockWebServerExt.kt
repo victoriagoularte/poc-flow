@@ -21,3 +21,14 @@ fun MockWebServer.enqueueResponse(fileName: String? = null, code: Int) {
     }
 }
 
+fun dispatchRequest(requestMock: RequestMock.() -> Unit): RequestMock {
+    return RequestMock().apply(requestMock)
+}
+
+infix fun Int.with(path: String) = RequestMock(code = this, path = path)
+
+infix fun RequestMock.startOn(mockWebServer: MockWebServer) {
+    mockWebServer.enqueueResponse(path, code)
+}
+
+

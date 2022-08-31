@@ -1,6 +1,6 @@
 package com.example.flow.presentation.flow
 
-import com.example.flow.common.UIState
+import com.example.flow.common.viewmodel.UIState
 import com.example.flow.domain.model.Pokemon
 
 data class PokeUiState(

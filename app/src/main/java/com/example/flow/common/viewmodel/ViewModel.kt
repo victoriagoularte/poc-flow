@@ -1,4 +1,4 @@
-package com.example.flow.common
+package com.example.flow.common.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

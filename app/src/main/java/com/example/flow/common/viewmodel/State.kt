@@ -1,4 +1,4 @@
-package com.example.flow.common
+package com.example.flow.common.viewmodel
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

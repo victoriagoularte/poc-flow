@@ -1,6 +1,6 @@
 package com.example.flow.presentation.flow
 
-import com.example.flow.common.UIEffect
+import com.example.flow.common.viewmodel.UIEffect
 
 sealed interface PokeUiEffects : UIEffect
 

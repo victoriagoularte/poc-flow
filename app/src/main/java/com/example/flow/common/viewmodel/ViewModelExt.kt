@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivity.onStateChange(
-    viewModel:  ViewModel<State, Effect>,
+    viewModel: ViewModel<State, Effect>,
     crossinline handleStates: (State) -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
 ) {
@@ -21,7 +21,7 @@ inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivit
 }
 
 inline fun <reified State : UIState, reified Effect : UIEffect> AppCompatActivity.onStateChange(
-    viewModel:  ViewModel<State, Effect>,
+    viewModel: ViewModel<State, Effect>,
     crossinline handleStates: (State) -> Unit,
     crossinline onRepeat: () -> Unit,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
