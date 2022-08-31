@@ -18,14 +18,6 @@ class PokeRepositoryImpl(private val dataSource: PokeDataSource) : PokeRepositor
             }
     }
 
-    override fun pokeFlow2(): Flow<List<Pokemon>> {
-        val pokeListResponse = dataSource.pokeFlow2()
-        return pokeListResponse
-            .map { response ->
-                response.toDomain().reversed()
-            }
-    }
-
     override suspend fun pokeCoroutines(): List<Pokemon> {
         return try {
             dataSource.pokeCoroutines().toDomain()

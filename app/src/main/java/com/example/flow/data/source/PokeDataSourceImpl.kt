@@ -11,9 +11,5 @@ class PokeDataSourceImpl(private val service: PokeService) : PokeDataSource {
         emit(service.pokemons())
     }
 
-    override fun pokeFlow2(): Flow<PokeResultResponse> = flow {
-        emit(service.pokemons())
-    }
-
     override suspend fun pokeCoroutines(): PokeResultResponse = service.pokemons()
 }
